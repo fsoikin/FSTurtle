@@ -1,0 +1,11 @@
+/out/
+/packages/
+/.vs/
+/.fake/
+
+bin/
+obj/
+*.csproj.user
+
+/.paket/
+!/.paket/paket.bootstrapper.exe

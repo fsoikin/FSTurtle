@@ -1,0 +1,27 @@
+source https://www.nuget.org/api/v2/
+
+nuget FSharp.Core >= 4.0.0 redirects: on
+nuget FSharp.Compiler.Service >= 3.0.0.0
+nuget FSharp.Control.Reactive
+nuget Microsoft.Owin.Host.HttpListener
+nuget xunit.runner.visualstudio >= 2.1.0 version_in_path: true
+nuget WebSharper >= 3.0
+nuget Mono.Cecil
+nuget WebSharper.Owin
+nuget WebSharper.UI.Next
+nuget Microsoft.Owin
+nuget Microsoft.Owin.Hosting
+nuget Microsoft.Owin.StaticFiles
+nuget Microsoft.Owin.FileSystems
+
+group Build
+source https://www.nuget.org/api/v2/
+nuget FAKE
+
+group Test
+source https://www.nuget.org/api/v2/
+nuget xUnit
+nuget Unquote
+nuget xunit.runner.console ~> 2.1 framework: >= net45
+nuget FsCheck
+nuget FsCheck.XUnit

@@ -1,0 +1,12 @@
+FSharp.Core
+FSharp.Compiler.Service
+FSharp.Control.Reactive
+Websharper
+Mono.Cecil
+WebSharper.Owin
+WebSharper.UI.Next
+Microsoft.Owin
+Microsoft.Owin.Hosting
+Microsoft.Owin.StaticFiles
+Microsoft.Owin.FileSystems
+Microsoft.Owin.Host.HttpListener
