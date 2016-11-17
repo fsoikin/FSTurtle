@@ -4,7 +4,7 @@ open CodeRunner
 open Swensen.Unquote
 open Xunit
 
-let fsiPath = System.IO.Path.Combine( System.AppDomain.CurrentDomain.BaseDirectory, "fsi", "fsi.exe" )
+let fsiPath = System.IO.Path.Combine( System.AppDomain.CurrentDomain.BaseDirectory, "fsi", "Fsi.exe" )
 
 let [<Fact>] ``Basic`` () =
   let res = runFsi (fun _ _ -> ()) fsiPath """printf "abc" """ 

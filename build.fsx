@@ -24,10 +24,6 @@ Target "DeployFsi" <| fun _ ->
   Fake.FileSystemHelper.ensureDirectory testBin
   Fake.FileUtils.cp_r "fsi" (sprintf "%s/fsi" testBin)
 
-  for b in [bin; testBin] do
-    for file in System.IO.Directory.GetFiles (b + "/fsi") do
-      printfn "%s" file
-
 Target "DeployContent" <| fun _ ->
   let content = sprintf "%s/Content" out
   Fake.FileSystemHelper.ensureDirectory content

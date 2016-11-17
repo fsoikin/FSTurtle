@@ -10,7 +10,7 @@ open WebSharper.JavaScript
 module Server =
   let fsiPath = 
     match ConfigurationManager.AppSettings.["FsiPath"] with
-    | null -> System.IO.Path.Combine( System.AppDomain.CurrentDomain.BaseDirectory, "bin", "fsi", "fsi.exe" )
+    | null -> System.IO.Path.Combine( System.AppDomain.CurrentDomain.BaseDirectory, "bin", "fsi", "Fsi.exe" )
     | s -> s
 
   let runFsi = CodeRunner.runFsi (Log.log4netLogger ()) fsiPath
