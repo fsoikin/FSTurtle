@@ -60,6 +60,22 @@
         }
       }
     }
+
+    > .loading {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 0;
+
+      background-color: rgba(255,255,255, 0.7);
+      //background-image: 
+
+      &.show {
+        height: auto;
+        bottom: 0 !important;
+      }
+    }
   }
 
   .output {

@@ -1,5 +1,6 @@
 source https://www.nuget.org/api/v2/
 
+nuget FParsec
 nuget FSharp.Core >= 4.0.0 redirects: on
 nuget FSharp.Compiler.Service >= 3.0.0.0
 nuget FSharp.Control.Reactive
@@ -13,6 +14,7 @@ nuget Microsoft.Owin
 nuget Microsoft.Owin.Hosting
 nuget Microsoft.Owin.StaticFiles
 nuget Microsoft.Owin.FileSystems
+nuget log4net
 
 group Build
 source https://www.nuget.org/api/v2/

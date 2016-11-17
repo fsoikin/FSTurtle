@@ -1,4 +1,4 @@
-[<AutoOpen>]
+[<AutoOpen; WebSharper.Core.Attributes.JavaScript>]
 module Turtle.Common
 
 type Result<'t> = OK of 't | Error of string | Timeout

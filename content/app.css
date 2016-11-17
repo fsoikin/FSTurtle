@@ -55,6 +55,18 @@
   left: 0;
   background: gray;
 }
+.page .image > .loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+.page .image > .loading.show {
+  height: auto;
+  bottom: 0 !important;
+}
 .page .output {
   position: absolute;
   top: 70%;

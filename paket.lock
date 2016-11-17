@@ -1,6 +1,6 @@
 NUGET
   remote: https://www.nuget.org/api/v2
-  specs:
+    FParsec (1.0.2)
     FSharp.Compiler.Service (3.0)
     FSharp.Control.Reactive (3.2)
       FSharp.Core (>= 3.1.2)
@@ -8,6 +8,7 @@ NUGET
       Rx-Interfaces (>= 2.2.5)
       Rx-Linq (>= 2.2.5)
     FSharp.Core (4.0.0.1) - redirects: on
+    log4net (2.0.5)
     Microsoft.Owin (3.0.1)
       Owin (>= 1.0)
     Microsoft.Owin.FileSystems (3.0.1)
@@ -39,13 +40,11 @@ NUGET
 GROUP Build
 NUGET
   remote: https://www.nuget.org/api/v2
-  specs:
     FAKE (4.25.4)
 
 GROUP Test
 NUGET
   remote: https://www.nuget.org/api/v2
-  specs:
     FsCheck (2.3)
       FSharp.Core (>= 3.1.2.5)
     FsCheck.Xunit (2.3)

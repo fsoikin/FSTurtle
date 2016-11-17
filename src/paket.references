@@ -10,3 +10,5 @@ Microsoft.Owin.Hosting
 Microsoft.Owin.StaticFiles
 Microsoft.Owin.FileSystems
 Microsoft.Owin.Host.HttpListener
+log4net
+FParsec

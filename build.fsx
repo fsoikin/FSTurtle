@@ -46,22 +46,25 @@ let isnull (s: string) = match s with | null -> "" | s -> s
 
 if environVar "TRAVIS_BRANCH" = "deploy" && environVar "TRAVIS_PULL_REQUEST" = "false" then
   Target "DeployToCloud" <| fun _ ->
-    let kuduRepoDir = sprintf "%s/out/deploy" root
+    let kuduRepoDir = sprintf "%s\\out\\deploy" root
     let kuduRepoUrl = environVar "KUDU_REPO" |> isnull
     if kuduRepoUrl = "" then failwith "No KUDU config."
     else 
+      printfn "%s" kuduRepoDir
       Fake.FileUtils.rm_rf kuduRepoDir
-      Git.CommandHelper.runGitCommand (DirectoryName kuduRepoDir) (sprintf "clone --depth 1 %s %s" kuduRepoUrl (filename kuduRepoDir)) |> ignore
+      Git.CommandHelper.runGitCommand (DirectoryName kuduRepoDir) (sprintf "clone %s %s" kuduRepoUrl (filename kuduRepoDir)) |> ignore
       Fake.FileUtils.cp_r out kuduRepoDir
+      Fake.FileUtils.rm_rf <| sprintf "%s\\logs" kuduRepoDir
       Git.Staging.StageAll kuduRepoDir
       Git.Commit.Commit kuduRepoDir (sprintf "CI deployment #%s" <| environVar "TRAVIS_BUILD_NUMBER")
-      Git.Branches.pushBranch kuduRepoDir "master" "origin"
-
-  "Build" ==> "DeployToCloud" |> ignore
-
+      Git.Branches.push kuduRepoDir
+else
+  Target "DeployToCloud" <| fun _ ->
+    failwith "Can't deploy to cloud: not a Travis build of the 'deploy' branch."
 
 "DeployFsi" ==> "Build"
 "DeployContent" ==> "Build"
 "Build" ==> "BuildTests" ==> "RunTests"
+"Build" ==> "DeployToCloud"
 
 RunTargetOrDefault "Build"
