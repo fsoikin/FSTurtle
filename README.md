@@ -13,16 +13,13 @@ Hosted at http://fsturtle.azurewebsites.net
 ## Example
 
 ```
+
 let print_h() =
   penDown()
   move 0 100
-  penUp()
   move 0 -50
-  penDown()
   move 50 0
-  penUp()
   move 0 -50
-  penDown()
   move 0 100
   penUp()
   move -50 -100
@@ -30,16 +27,12 @@ let print_h() =
 let print_i() =
   penDown()
   move 50 0
-  penUp()
   move -25 0
-  penDown()
   move 0 100
-  penUp()
   move -25 0
-  penDown()
   move 50 0
   penUp()
-  move -50 -100
+  move -50 -100 
 
 move -70 0
 print_h()
