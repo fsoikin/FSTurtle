@@ -39,7 +39,7 @@ Target "Clean" <| fun _ ->
   Fake.FileUtils.rm_rf bin
 
 Target "RunTests" <| fun _ ->
-  [sprintf "%s/Fovel.Tests.dll" testBin]
+  [sprintf "%s/Turtle.Tests.dll" testBin]
   |> xUnit2 (fun p -> { p with MaxThreads = MaxThreads 1 })
 
 let isnull (s: string) = match s with | null -> "" | s -> s

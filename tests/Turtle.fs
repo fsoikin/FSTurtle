@@ -16,5 +16,18 @@ module Serialization =
     let expected = "U;C'x';M1,2;D;M3,4;C'y'"
     test <@ res = expected @>
 
+  let [<Fact>] ``Commas and semicolons in colors get cut out`` () =
+    test <@ serialize [Color "'"] = "C''" @>
+    test <@ serialize [Color ";"] = "C''" @>
+    test <@ serialize [Color "a'b"] = "C'ab'" @>
+    test <@ serialize [Color "x;y"] = "C'xy'" @>
+
+  let isNullOrBannedColor = function 
+    | Color null -> true
+    | Color c when c.Contains "'" || c.Contains ";" -> true
+    | _ -> false
+  let noNullsOrBannedColors = not << List.exists isNullOrBannedColor
+
   let [<Property>] ``serialize and deserialize are dual`` commands =
-    (serialize commands |> deserialize) = commands
+    noNullsOrBannedColors commands ==> 
+      fun() -> (serialize commands |> deserialize) = commands
