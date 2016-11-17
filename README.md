@@ -1,4 +1,4 @@
-# Turtle graphics in F#
+# Turtle graphics
 
 ![Build Status](https://travis-ci.org/fsoikin/FSTurtle.svg?branch=master)
 
