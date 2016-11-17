@@ -3,7 +3,6 @@ open System
 open System.Diagnostics
 open System.IO
 open FSharp.Control.Reactive
-open System.Text
 
 let runProcess (logger:Log.Logger) cmd dir args writeInput =
   let debug = logger Log.Debug
