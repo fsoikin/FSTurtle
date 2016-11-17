@@ -4,6 +4,8 @@ sudo: true  # use the new container-based Travis infrastructure
 
 before_script:
  - chmod +x ./build.sh
+ - chmod uog+rw /etc/mono
+ - mkdir /etc/mono/registry
  - chmod uog+rw /etc/mono/registry
 
 script: 
