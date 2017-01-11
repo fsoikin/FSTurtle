@@ -1,0 +1,14 @@
+/packages/
+/src/client/node_modules/
+
+/.fake/
+/.paket/
+!/.paket/paket.bootstrapper.exe
+
+npm-debug.log
+
+**/bin/Debug/
+**/bin/Release/
+**/obj/
+**/.vs/
+*.suo

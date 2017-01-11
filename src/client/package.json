@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "dependencies": {
+    "fable-arch": "^0.10.0-alpha",
+    "fable-core": "^0.7.12",
+    "fable-powerpack": "0.0.19",
+    "virtual-dom": "^2.1.1"
+  },
+  "devDependencies": {
+    "fable-compiler": "^0.7.24",
+    "rollup-plugin-commonjs": "^7.0.0"
+  },
+  "scripts": {
+    "build": "fable",
+    "build:watch": "fable -w"
+  }
+}

@@ -1,0 +1,6 @@
+FSharp.Core
+suave
+FSharp.Control.Reactive
+Newtonsoft.Json
+Fable.JsonConverter
+log4net

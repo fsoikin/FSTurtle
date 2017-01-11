@@ -1,0 +1,14 @@
+{
+    "projFile": "client.fsproj",
+    "outDir": "build",
+    
+    "rollup": {
+        "plugins": [
+            ["commonjs", {
+                "namedExports": {
+                "virtual-dom": [ "h", "create", "diff", "patch" ]
+                }
+            }]
+        ]
+    }
+}

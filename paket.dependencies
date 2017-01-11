@@ -1,0 +1,23 @@
+source https://www.nuget.org/api/v2
+
+nuget FSharp.Core >= 4.0.0 redirects: on
+nuget Fable.JsonConverter
+nuget FSharp.Control.Reactive
+nuget log4net
+nuget Newtonsoft.Json
+nuget suave
+nuget xunit.runner.visualstudio >= 2.1.0 version_in_path: true
+
+group Build
+source https://www.nuget.org/api/v2/
+nuget FAKE
+nuget Node.js
+nuget Npm.js
+
+group Test
+source https://www.nuget.org/api/v2/
+nuget xUnit
+nuget Unquote
+nuget xunit.runner.console ~> 2.1 framework: >= net45
+nuget FsCheck
+nuget FsCheck.XUnit
