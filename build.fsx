@@ -40,9 +40,10 @@ Target "DeployContent" <| fun _ ->
 
 Target "Clean" <| fun _ ->
   Fake.FileUtils.rm_rf serverBin
+  Fake.FileUtils.rm_rf testBin
 
 Target "RunTests" <| fun _ ->
-  [sprintf "%s/Turtle.Tests.dll" testBin]
+  [sprintf "%s/Turtle.Tests.exe" testBin]
   |> xUnit2 (fun p -> { p with MaxThreads = MaxThreads 1 })
 
 let isnull (s: string) = match s with | null -> "" | s -> s
@@ -69,7 +70,10 @@ else
 "BuildClient" ==> "Build"
 "DeployFsi" ==> "Build"
 "DeployContent" ==> "Build"
-"Build" ==> "BuildTests" ==> "RunTests"
+
+"BuildServer" ==> "BuildTests" ==> "RunTests"
+"DeployFsi" ==> "RunTests"
+
 "Build" ==> "DeployToCloud"
 
 RunTargetOrDefault "Build"

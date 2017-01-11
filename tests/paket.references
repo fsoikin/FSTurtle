@@ -1,5 +1,6 @@
 FSharp.Core
 xunit.runner.visualstudio
+FSharp.Control.Reactive
 
 group Test
 xUnit
