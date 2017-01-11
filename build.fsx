@@ -11,6 +11,8 @@ Target "BuildServer" <| fun _ ->
   !! "src/server/*.fsproj"
   |> MSBuild "" "Build" ["Configuration", config]
   |> Log "Build: "
+  Fake.FileUtils.cp "local.web.config" (sprintf "%s/web.config" serverBin)
+  Fake.FileUtils.mkdir (sprintf "%s/logs" serverBin)
 
 Target "BuildClient" <| fun _ ->
   NpmHelper.Npm (fun p -> { p with Command = NpmHelper.Install NpmHelper.Standard; WorkingDirectory = "src/client" })
@@ -57,7 +59,8 @@ if environVar "TRAVIS_BRANCH" = "deploy" && environVar "TRAVIS_PULL_REQUEST" = "
       Fake.FileUtils.rm_rf kuduRepoDir
       Git.CommandHelper.runGitCommand (DirectoryName kuduRepoDir) (sprintf "clone %s %s" kuduRepoUrl (filename kuduRepoDir)) |> ignore
       Fake.FileUtils.cp_r serverBin kuduRepoDir
-      Fake.FileUtils.rm_rf <| sprintf "%s\\logs" kuduRepoDir
+      Fake.FileUtils.cp "azure.web.config" (sprintf "%s/web.config" kuduRepoDir)
+      Fake.FileUtils.rm_rf (sprintf "%s\\logs" kuduRepoDir)
       Git.Staging.StageAll kuduRepoDir
       Git.Commit.Commit kuduRepoDir (sprintf "CI deployment #%s" <| environVar "TRAVIS_BUILD_NUMBER")
       Git.Branches.push kuduRepoDir

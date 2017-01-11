@@ -40,8 +40,18 @@ let app =
             Successful.OK( toJson res ))
     ]
 
+let bindingsFromPort p = 
+    match Option.map Sockets.Port.TryParse p with
+    | Some (true, p) -> [ HttpBinding.create HTTP System.Net.IPAddress.Loopback p ]
+    | _ -> defaultConfig.bindings
+
 [<EntryPoint>]
 let main argv =
-    printfn "HOME = %s" homeDir
-    startWebServer { defaultConfig with homeFolder = Some homeDir } app
+    printfn "Hi!"
+    app
+    |> startWebServer 
+        { defaultConfig with 
+            homeFolder = Some homeDir
+            bindings = bindingsFromPort (Seq.tryHead argv) 
+        } 
     0
