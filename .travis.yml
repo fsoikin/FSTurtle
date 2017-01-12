@@ -1,41 +1,11 @@
 language: generic
 
-sudo: false  # use the new container-based Travis infrastructure
-
-addons:
-  apt:
-    packages:
-    - gettext
-    - libcurl4-openssl-dev
-    - libicu-dev
-    - libssl-dev
-    - libunwind8
-    - zlib1g
-
 matrix:
   include:
     - os: linux
       dist: trusty
       sudo: required
 
-before_install:
-  - export DOTNET_SDK_URL="https://go.microsoft.com/fwlink/?LinkID=809129"
-  - export DOTNET_INSTALL_DIR="$PWD/.dotnetcli"
-  - mkdir $DOTNET_INSTALL_DIR
-  - curl -L $DOTNET_SDK_URL -o dotnet_package
-  - tar -xvzf dotnet_package -C $DOTNET_INSTALL_DIR
-  - export PATH="$DOTNET_INSTALL_DIR:$PATH"
-
-install:
-  - which dotnet;
-    if [ $? -eq 0 ]; then
-      echo "Using dotnet:";
-      dotnet --info;
-    else
-      echo "dotnet.exe not found"
-      exit 1;
-    fi
-    
 before_script:
  - chmod +x ./build.sh
 
