@@ -1,6 +1,24 @@
-language: csharp
+language: generic
 
 sudo: false  # use the new container-based Travis infrastructure
+
+addons:
+  apt:
+    packages:
+    - gettext
+    - libcurl4-openssl-dev
+    - libicu-dev
+    - libssl-dev
+    - libunwind8
+    - zlib1g
+
+install:
+  - export DOTNET_SDK_URL="https://go.microsoft.com/fwlink/?LinkID=809129"
+  - export DOTNET_INSTALL_DIR="$PWD/.dotnetcli"
+  - mkdir $DOTNET_INSTALL_DIR
+  - curl -L $DOTNET_SDK_URL -o dotnet_package
+  - tar -xvzf dotnet_package -C $DOTNET_INSTALL_DIR
+  - export PATH="$DOTNET_INSTALL_DIR:$PATH"
 
 before_script:
  - chmod +x ./build.sh
