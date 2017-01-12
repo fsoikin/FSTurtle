@@ -12,6 +12,12 @@ addons:
     - libunwind8
     - zlib1g
 
+matrix:
+  include:
+    - os: linux
+      dist: trusty
+      sudo: required
+
 install:
   - export DOTNET_SDK_URL="https://go.microsoft.com/fwlink/?LinkID=809129"
   - export DOTNET_INSTALL_DIR="$PWD/.dotnetcli"
