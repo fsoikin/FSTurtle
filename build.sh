@@ -1,8 +1,7 @@
 #!/bin/bash
 if test "$OS" = "Windows_NT"
 then
-  # use .Net
-
+  # use Windows .NET FW
   .paket/paket.bootstrapper.exe
   exit_code=$?
   if [ $exit_code -ne 0 ]; then
@@ -15,22 +14,27 @@ then
   	exit $exit_code
   fi
   
-  packages/build/FAKE/tools/FAKE.exe $@ --fsiargs -d:MONO build.fsx 
+  packages/build/FAKE/tools/FAKE.exe $@ --fsiargs build.fsx 
 else
-  # use mono
-  mono .paket/paket.bootstrapper.exe
+  # use dotnet
+  export DOTNET_SDK_URL="https://go.microsoft.com/fwlink/?LinkID=809129"
+  export DOTNET_INSTALL_DIR="$PWD/.dotnetcli"
+  mkdir $DOTNET_INSTALL_DIR
+  curl -L $DOTNET_SDK_URL -o dotnet_package
+  tar -xvzf dotnet_package -C $DOTNET_INSTALL_DIR
+  export PATH="$DOTNET_INSTALL_DIR:$PATH"
+
+  dotnet .paket/paket.bootstrapper.exe
   exit_code=$?
   if [ $exit_code -ne 0 ]; then
   	exit $exit_code
   fi
 
-  mono .paket/paket.exe restore
+  dotnet .paket/paket.exe restore
   exit_code=$?
   if [ $exit_code -ne 0 ]; then
   	exit $exit_code
   fi
 
-  sudo mkdir /etc/mono/registry
-  sudo chmod uog+rw /etc/mono/registry
-  mono packages/build/FAKE/tools/FAKE.exe $@ --fsiargs -d:MONO build.fsx 
+  dotnet packages/build/FAKE/tools/FAKE.exe $@ --fsiargs build.fsx 
 fi
