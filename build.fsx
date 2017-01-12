@@ -58,9 +58,15 @@ if environVar "TRAVIS_BRANCH" = "deploy" && environVar "TRAVIS_PULL_REQUEST" = "
     else 
       Fake.FileUtils.rm_rf kuduRepoDir
       Git.CommandHelper.runGitCommand (DirectoryName kuduRepoDir) (sprintf "clone %s %s" kuduRepoUrl (filename kuduRepoDir)) |> ignore
+      
+      for d in System.IO.Directory.GetFileSystemEntries kuduRepoDir do
+        if System.IO.Path.GetFileName d <> ".git" then
+          Fake.FileUtils.rm_rf d
+
       Fake.FileUtils.cp_r serverBin kuduRepoDir
       Fake.FileUtils.cp "azure.web.config" (sprintf "%s/web.config" kuduRepoDir)
       Fake.FileUtils.rm_rf (sprintf "%s\\logs" kuduRepoDir)
+
       Git.Staging.StageAll kuduRepoDir
       Git.Commit.Commit kuduRepoDir (sprintf "CI deployment #%s" <| environVar "TRAVIS_BUILD_NUMBER")
       Git.Branches.push kuduRepoDir
