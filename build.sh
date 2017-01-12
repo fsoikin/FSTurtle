@@ -30,5 +30,7 @@ else
   	exit $exit_code
   fi
 
+  sudo mkdir /etc/mono/registry
+  sudo chmod uog+rw /etc/mono/registry
   mono packages/build/FAKE/tools/FAKE.exe $@ --fsiargs -d:MONO build.fsx 
 fi
