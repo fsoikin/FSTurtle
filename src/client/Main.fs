@@ -92,9 +92,19 @@ let update model = function
     | FailedToFetch msg ->
         { model with Errors = ["ERROR: " + msg] }, []
 
-createApp 
-    { Code = ""; Errors = []; Image = Image.initModel; State = Idle }
-    view update Fable.Arch.Virtualdom.createRender
+module CodeCache =
+    let key = "TURTLE_CODE"
+    let get() =
+        match Browser.localStorage.getItem key with
+        | :? string as s -> s
+        | _ -> ""
+
+    let set code = Browser.localStorage.setItem( key, code )
+
+let initModel = { Code = ""; Errors = []; Image = Image.initModel; State = Idle }
+
+createApp initModel view update Virtualdom.createRender
 |> withStartNodeSelector "#root"
-|> withSubscriber (printfn "%A")
+|> withSubscriber (fun m -> CodeCache.set m.CurrentState.Code)
+|> withInitMessage (fun p -> p (UpdateCode <| CodeCache.get()))
 |> start

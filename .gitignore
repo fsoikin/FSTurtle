@@ -1,6 +1,7 @@
 /packages/
 /src/client/node_modules/
 /deploy/
+/src/client/build/
 
 /.fake/
 /.paket/
