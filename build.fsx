@@ -7,6 +7,10 @@ let config = getBuildParamOrDefault "Config" "Debug"
 let serverBin = sprintf "%s/src/server/bin/%s" root config
 let testBin = sprintf "%s/tests/bin/%s" root config
 
+let branch = getBuildParamOrDefault "Branch" "master"
+let isPullRequest = getBuildParamOrDefault "PullRequest" "" <> "false"
+let buildNumber = getBuildParamOrDefault "BuildNumber" "local"
+
 Target "BuildServer" <| fun _ ->
   !! "src/server/*.fsproj"
   |> MSBuild "" "Build" ["Configuration", config]
@@ -17,8 +21,6 @@ Target "BuildServer" <| fun _ ->
 Target "BuildClient" <| fun _ ->
   NpmHelper.Npm (fun p -> { p with Command = NpmHelper.Install NpmHelper.Standard; WorkingDirectory = "src/client" })
   NpmHelper.Npm (fun p -> { p with Command = NpmHelper.Run "build"; WorkingDirectory = "src/client" })
-
-Target "Build" DoNothing
 
 Target "BuildTests" <| fun _ ->
   !! "tests/*.fsproj" 
@@ -50,7 +52,7 @@ Target "RunTests" <| fun _ ->
 
 let isnull (s: string) = match s with | null -> "" | s -> s
 
-if environVar "TRAVIS_BRANCH" = "deploy" && environVar "TRAVIS_PULL_REQUEST" = "false" then
+if branch = "deploy" && (not isPullRequest) then
   Target "DeployToCloud" <| fun _ ->
     let kuduRepoDir = sprintf "%s\\deploy" root
     let kuduRepoUrl = environVar "KUDU_REPO" |> isnull
@@ -68,21 +70,27 @@ if environVar "TRAVIS_BRANCH" = "deploy" && environVar "TRAVIS_PULL_REQUEST" = "
       Fake.FileUtils.rm_rf (sprintf "%s\\logs" kuduRepoDir)
 
       Git.Staging.StageAll kuduRepoDir
-      Git.Commit.Commit kuduRepoDir (sprintf "CI deployment #%s" <| environVar "TRAVIS_BUILD_NUMBER")
+      Git.Commit.Commit kuduRepoDir (sprintf "CI deployment #%s" buildNumber)
       Git.Branches.push kuduRepoDir
 else
   Target "DeployToCloud" <| fun _ ->
-    failwith "Can't deploy to cloud: not a Travis build of the 'deploy' branch."
+    printfn "Can't deploy to cloud: not a CI build of the 'deploy' branch."
 
-"BuildClient" ==> "DeployContent"
-"BuildServer" ==> "Build"
-"BuildClient" ==> "Build"
-"DeployFsi" ==> "Build"
-"DeployContent" ==> "Build"
+Target "CIBuild" DoNothing
+Target "Build" DoNothing
+
+"BuildClient" 
+  ==> "BuildServer"
+  ==> "DeployContent"
+  ==> "DeployFsi"
+  ==> "Build"
 
 "BuildServer" ==> "BuildTests" ==> "RunTests"
 "DeployFsi" ==> "RunTests"
 
-"Build" ==> "DeployToCloud"
+"Build"
+  ==> "RunTests"
+  ==> "DeployToCloud"
+  ==> "CIBuild"
 
 RunTargetOrDefault "Build"

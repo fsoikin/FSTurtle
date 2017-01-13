@@ -1,6 +1,7 @@
 # Turtle graphics
 
-![Build Status](https://travis-ci.org/fsoikin/FSTurtle.svg?branch=master)
+![Travis Build Status](https://travis-ci.org/fsoikin/FSTurtle.svg?branch=master)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/sifnaq8dmm1sc867/branch/master?svg=true)](https://ci.appveyor.com/project/fsoikin/fsturtle/branch/master)
 
 Hosted at http://fsturtle.azurewebsites.net
 
