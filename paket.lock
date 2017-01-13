@@ -157,6 +157,9 @@ NUGET
       System.Threading.Tasks (>= 4.0.11) - framework: >= netstandard10
       System.Xml.ReaderWriter (>= 4.0.11) - framework: >= netstandard10
       System.Xml.XDocument (>= 4.0.11) - framework: >= netstandard10
+    Node.js (5.3)
+    Npm.js (2.13.1)
+      Node.js (>= 0.12.7)
     runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl (4.3) - framework: net46, >= net46, netstandard13, >= netstandard16
     runtime.fedora.23-x64.runtime.native.System.Security.Cryptography.OpenSsl (4.3) - framework: net46, >= net46, netstandard13, >= netstandard16
     runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl (4.3) - framework: net46, >= net46, netstandard13, >= netstandard16
@@ -578,7 +581,7 @@ NUGET
       System.Reactive.Windows.Threading (>= 3.1.1) - framework: >= net45, winv4.5.1, wpav8.1
       System.Reactive.WindowsRuntime (>= 3.1.1) - framework: winv4.5.1, wpav8.1
     System.Reactive.Core (3.1.1) - framework: >= net45, >= netstandard10, winv4.5.1, wpav8.1
-      System.Reactive.Interfaces (>= 3.1.1) - framework: >= net45, >= netstandard10
+      System.Reactive.Interfaces (>= 3.1.1) - framework: >= net45, >= netstandard10, netcore10
     System.Reactive.Interfaces (3.1.1) - framework: >= net45, >= netstandard10
     System.Reactive.Linq (3.1.1)
       System.Reactive.Core (>= 3.1.1) - framework: >= net45, >= netstandard10
@@ -932,9 +935,6 @@ GROUP Build
 NUGET
   remote: https://www.nuget.org/api/v2
     FAKE (4.48)
-    Node.js (5.3)
-    Npm.js (2.13.1)
-      Node.js (>= 0.12.7)
 
 GROUP Test
 NUGET
