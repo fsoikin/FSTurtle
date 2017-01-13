@@ -7,12 +7,12 @@ nuget log4net
 nuget Newtonsoft.Json
 nuget suave
 nuget xunit.runner.visualstudio >= 2.1.0 version_in_path: true
+nuget Node.js
+nuget Npm.js
 
 group Build
 source https://www.nuget.org/api/v2/
 nuget FAKE
-nuget Node.js
-nuget Npm.js
 
 group Test
 source https://www.nuget.org/api/v2/
