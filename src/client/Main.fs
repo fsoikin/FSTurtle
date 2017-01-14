@@ -32,6 +32,7 @@ type Model = {
     Code: string
     Errors: string list
     Image: Image.Model
+    Scale: Slider.Model
     State: State
 }
 and State = WaitingToFetch of int | Fetching of int | Idle
@@ -41,11 +42,12 @@ type Msg =
     | Fetch of int
     | Fetched of int * Turtle.Picture
     | FailedToFetch of string
+    | Scale of Slider.Msg
 
 let codeView model =
     div [classy "code"] 
         [textarea 
-            [onKeyup (fun e -> unbox<string>(e?target?value))] 
+            [onKeyup (fun e -> unbox e?target?value)] 
             [text model]]
 
 let errorsView model =
@@ -56,6 +58,7 @@ let view model =
     div [] 
         [codeView model.Code |> Html.map UpdateCode
          Image.view model.Image
+         Slider.view model.Scale |> Html.map Scale
          errorsView model.Errors]
 
 let actn p k = p |> Promise.catch (fun e -> FailedToFetch e.Message) |> Promise.iter k
@@ -92,6 +95,12 @@ let update model = function
     | FailedToFetch msg ->
         { model with Errors = ["ERROR: " + msg] }, []
 
+    | Scale msg ->
+        let scale = Slider.update model.Scale msg
+        let scaleFactor = exp ((0.5 - Slider.pos scale)*10.)
+        let image = Image.update model.Image (Image.Scale scaleFactor)
+        { model with Scale = scale; Image = image }, []
+
 module CodeCache =
     let key = "TURTLE_CODE"
     let get() =
@@ -101,7 +110,7 @@ module CodeCache =
 
     let set code = Browser.localStorage.setItem( key, code )
 
-let initModel = { Code = ""; Errors = []; Image = Image.initModel; State = Idle }
+let initModel = { Code = ""; Errors = []; Image = Image.initModel; State = Idle; Scale = Slider.init 0.5 }
 
 createApp initModel view update Virtualdom.createRender
 |> withStartNodeSelector "#root"

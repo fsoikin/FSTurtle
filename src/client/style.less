@@ -5,7 +5,7 @@
 
 .image {
     position: absolute;
-    left: 50%;
+    left: 52%;
     right: 0;
     top: 0;
     height: 70%;
@@ -34,6 +34,27 @@
     position: absolute;
     left: 0;
     right: 0;
-    top: 70%;
+    top: 73%;
     bottom: 0;
+    border-top: 2px solid gray;
+}
+
+.slider {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 70%;
+    width: 1em;
+    border: 1px solid black;
+    background: white;
+    .tab {
+        position: absolute;
+        left: 1px;
+        right: 1px;
+        height: 1em;
+        margin-top: -50%;
+        background: gray;
+
+        &:hover { background: silver; }
+    }
 }

@@ -54,7 +54,8 @@
     <Compile Include="..\common\Turtle.fs">
       <Link>Turtle.fs</Link>
     </Compile>
-    <Compile Include="Svg.fs" />
+    <Compile Include="Utils.fs" />
+    <Compile Include="Slider.fs" />
     <Compile Include="Image.fs" />
     <Compile Include="Main.fs" />
   </ItemGroup>
